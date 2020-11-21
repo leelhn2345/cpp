@@ -9,14 +9,19 @@ void List::printMenu()
     cout << "1 - print list" << endl;
     cout << "2 - add to list" << endl;
     cout << "3 - delete from list" << endl;
-    cout << "4 - quit" << endl;
+    cout << "4 - save list" << endl;
+    cout << "5 - quit" << endl;
     cout << "enter your choice and press return: " << endl;
 
     cin >> choice;
 
-    if (choice == 4)
+    if (choice == 5)
     {
-        exit(0);
+        return;
+    }
+    else if (choice == 4)
+    {
+        saveList();
     }
     else if (choice == 1)
     {
@@ -101,4 +106,41 @@ void List::printList()
     {
         cout << "invalid choice. quitting..." << endl;
     }
+}
+
+bool List::findUserList()
+{
+    bool userFound = false;
+    cout << "\n\n\n\n\n\n\n\n"
+         << endl;
+    cout << "****** Welcome " << name << "******" << endl;
+
+    for (int i = 0; i < int(mainList.size()); i++)
+    {
+        cout << mainList[i][0] << endl;
+
+        if (mainList[i][0] == name)
+        {
+            cout << "user has been found:" << mainList[i][0] << endl;
+            list = mainList[i];
+            currentUserIdx = i;
+            userFound = true;
+            break;
+        }
+    }
+
+    if (userFound == false)
+    {
+        list.push_back(name);
+        currentUserIdx = int(mainList.size()) - 1;
+    }
+
+    return userFound;
+}
+
+void List::saveList()
+{
+    cout << "saving list..." << endl;
+    mainList[currentUserIdx] = list;
+    printMenu();
 }
